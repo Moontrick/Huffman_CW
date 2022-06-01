@@ -1,0 +1,19 @@
+﻿  Coding.c
+F:\games\tests\Huffman_CW\Huffman_CW\Coding.c(11,1): warning C4005: MAXWORD: изменение макроопределения
+F:\Windows Kits\10\Include\10.0.19041.0\um\winnt.h(1198): message : см. предыдущее определение "MAXWORD"
+F:\games\tests\Huffman_CW\Huffman_CW\Coding.c(217,36): warning C4133: =: несовместимые типы - из "char *" в "LPWSTR"
+F:\games\tests\Huffman_CW\Huffman_CW\Coding.c(289,38): warning C4133: =: несовместимые типы - из "char *" в "LPWSTR"
+F:\games\tests\Huffman_CW\Huffman_CW\Coding.c(366,57): warning C4267: функция: преобразование из "size_t" в "int"; возможна потеря данных
+F:\games\tests\Huffman_CW\Huffman_CW\Coding.c(406,53): warning C4267: функция: преобразование из "size_t" в "int"; возможна потеря данных
+F:\games\tests\Huffman_CW\Huffman_CW\Coding.c(371,29): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+F:\games\tests\Huffman_CW\Huffman_CW\Coding.c(411,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+F:\games\tests\Huffman_CW\Huffman_CW\Coding.c(208,17): warning C4101: fw: неиспользованная локальная переменная
+  Decoding.c
+F:\games\tests\Huffman_CW\Huffman_CW\Decoding.c(12,1): warning C4005: MAXWORD: изменение макроопределения
+F:\Windows Kits\10\Include\10.0.19041.0\um\winnt.h(1198): message : см. предыдущее определение "MAXWORD"
+F:\games\tests\Huffman_CW\Huffman_CW\Decoding.c(39,36): warning C4133: =: несовместимые типы - из "char *" в "LPWSTR"
+  Main.c
+F:\games\tests\Huffman_CW\Huffman_CW\Main.c(22,9): warning C4013: Codding: нет определения; предполагается "extern" с возвратом типа "int"
+F:\games\tests\Huffman_CW\Huffman_CW\Main.c(26,9): warning C4013: DeCodding: нет определения; предполагается "extern" с возвратом типа "int"
+  Создание кода...
+  Huffman_CW.vcxproj -> F:\games\tests\Huffman_CW\x64\Debug\Huffman_CW.exe
