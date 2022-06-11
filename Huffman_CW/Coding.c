@@ -67,19 +67,45 @@ typedef struct {
     unsigned int right;
 }node, * h_tree;    // Динамическое размещение массива для хранения дерева Хаффмана
 
-void add_Tree(h_tree h_t, int i, int* s1, int* s2, int k_start) {
+void add_Tree(h_tree h_t, int i, int* s_left, int* s_right, int k_start) {
     //создание узла дерева Хаффмана, совмещая два соседних узла под 1 новый узел
-    int min1, min2, j = 0;
+    int w_left = 0;
+    int w_right = 0;
+    int j = 0;
     for (int k = k_start; k <= i - 1; k++) {
         if (h_t[k].parent == 0) {
             if (j == 0) {
-                min1 = h_t[k].weight;
-                *s1 = k;
+                w_left = h_t[k].weight;
+                *s_left = k;
             }
             else if (j == 1) {
-                min2 = h_t[k].weight;
-                *s2 = k;
-                break;
+                if (h_t[k].weight < w_left) {
+                    //этот if заходит тогда, когда у нас созданный узел имеет вес больше, чем узел, который мы уже создали
+                    //например узел k = n имеет вес 4, а узел k = n + 1, который уже имеет у себя левые и правые узлы имеет вес меньший узла k=n (1)
+                    w_right = w_left;
+                    *s_right = *s_left;
+                    w_left = h_t[k].weight;
+                    *s_left = k;
+                }
+                else {  //этот if создает пару для 1 узла
+                    w_right = h_t[k].weight;
+                    *s_right = k;
+                }
+            }
+            else {
+                if (h_t[k].weight < w_left) {
+                    w_right = w_left;
+                    *s_right = *s_left;
+                    w_left = h_t[k].weight;
+                    *s_left = k;
+                    break;
+                }
+                else
+                if (h_t[k].weight >= w_left && h_t[k].weight < w_right) {   // этот if заходит тогда, когда вылетел if (1), чтобы проверить, есть ли еще пара
+                    w_right = h_t[k].weight;
+                    *s_right = k;
+                    break;
+                }
             }
             j++;
         }
@@ -121,7 +147,7 @@ void HuffmanCoding(h_tree* h_t, h_code* h_c, int* w, int n) {
         (*h_t)[i].left = s1;
         (*h_t)[i].right = s2;
         (*h_t)[i].weight = (*h_t)[s1].weight + (*h_t)[s2].weight;//узел - родитель у 2 узло имеет сумму их весов
-        k_start = k_start + 2;
+        k_start++;
     }
 
 
