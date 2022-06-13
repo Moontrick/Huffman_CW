@@ -23,7 +23,7 @@ struct tnode { //структура для определения кол-ва с
 };
 
 // Функция добавления узла
-struct tnode* addtree(struct tnode* p, char w) {
+struct tnode* make_tree(struct tnode* p, char w) {
     int cond;
 
     if (p == NULL) {
@@ -38,11 +38,11 @@ struct tnode* addtree(struct tnode* p, char w) {
     }
     else if (cond < 0) {
 
-        p->left = addtree(p->left, w);
+        p->left = make_tree(p->left, w);
     }
     else {
 
-        p->right = addtree(p->right, w);
+        p->right = make_tree(p->right, w);
     }
     return p;
 }
@@ -236,7 +236,7 @@ void Codding() {
     //Код открытия файла я брал из методического пособия Миронова Сергея Владимировича
     OPENFILENAME openFileDialog;
     char file[260];
-    unsigned char fileName[260] = "";
+    unsigned char main_file[260] = "";
     ZeroMemory(&openFileDialog, sizeof(openFileDialog));
     openFileDialog.lStructSize = sizeof(openFileDialog);
     openFileDialog.hwndOwner = NULL;
@@ -257,11 +257,11 @@ void Codding() {
                 i++;
             }
             else {
-                fileName[j] = file[i];
+                main_file[j] = file[i];
 
                 if (file[i] == 92) {
                     j++;
-                    fileName[j] = 92;
+                    main_file[j] = 92;
                 }
                 j++;
                 i++;
@@ -270,7 +270,7 @@ void Codding() {
     }
 
 
-    fp = fopen(fileName, "r");
+    fp = fopen(main_file, "r");
 
 
     struct tnode* root;
@@ -278,9 +278,9 @@ void Codding() {
     root = NULL;
     while (fscanf(fp, "%s", &word) != EOF) { //определяем кол-во символов в строке.
         for (int i = 0; i < strlen(word); i++) {
-            root = addtree(root, word[i]);
+            root = make_tree(root, word[i]);
         }
-        root = addtree(root, ' ');
+        root = make_tree(root, ' ');
     }
     cnt = 0;
     treereturn(root);
@@ -303,43 +303,43 @@ void Codding() {
 
 
 
-    fp = fopen(fileName, "r"); //исходный файл, который будем кодировать
+    fp = fopen(main_file, "r"); //исходный файл, который будем кодировать
 
     printf("Specify the path to the file to which you want to encode the information.\n");
-    OPENFILENAME openFileDialog1;
-    char file1[260];
-    unsigned char fileName1[260] = "";
-    ZeroMemory(&openFileDialog1, sizeof(openFileDialog1));
-    openFileDialog1.lStructSize = sizeof(openFileDialog1);
-    openFileDialog1.hwndOwner = NULL;
-    openFileDialog1.lpstrFile = file1;
-    openFileDialog1.lpstrFile[0] = '\0';
-    openFileDialog1.nMaxFile = sizeof(file1);
-    openFileDialog1.lpstrFilter = L"Text files (*.txt)\0*.txt\0All files 2007\0*.*\0";
-    openFileDialog1.nFilterIndex = 1;
-    openFileDialog1.lpstrFileTitle = NULL;
-    openFileDialog1.nMaxFileTitle = 0;
-    openFileDialog1.lpstrInitialDir = NULL;
-    openFileDialog1.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_HIDEREADONLY;
-    if (GetOpenFileName(&openFileDialog1)) {
+    OPENFILENAME openSecondFileDialog;
+    char file_s[260];
+    unsigned char second_file[260] = "";
+    ZeroMemory(&openSecondFileDialog, sizeof(openSecondFileDialog));
+    openSecondFileDialog.lStructSize = sizeof(openSecondFileDialog);
+    openSecondFileDialog.hwndOwner = NULL;
+    openSecondFileDialog.lpstrFile = file_s;
+    openSecondFileDialog.lpstrFile[0] = '\0';
+    openSecondFileDialog.nMaxFile = sizeof(file_s);
+    openSecondFileDialog.lpstrFilter = L"Text files (*.txt)\0*.txt\0All files 2007\0*.*\0";
+    openSecondFileDialog.nFilterIndex = 1;
+    openSecondFileDialog.lpstrFileTitle = NULL;
+    openSecondFileDialog.nMaxFileTitle = 0;
+    openSecondFileDialog.lpstrInitialDir = NULL;
+    openSecondFileDialog.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_HIDEREADONLY;
+    if (GetOpenFileName(&openSecondFileDialog)) {
         int i = 0;
         int j = 0;
-        while (file1[i] != -52) {
-            if (file1[i] == 0) {
+        while (file_s[i] != -52) {
+            if (file_s[i] == 0) {
                 i++;
             }
-            else if (file1[i] == 't' && file1[i + 2] == 'x' && file1[i + 4] == 't') {
-                fileName1[j] = 'b';
-                fileName1[j + 1] = 'i';
-                fileName1[j + 2] = 'n';
+            else if (file_s[i] == 't' && file_s[i + 2] == 'x' && file_s[i + 4] == 't') {
+                second_file[j] = 'b';
+                second_file[j + 1] = 'i';
+                second_file[j + 2] = 'n';
                 break;
             }
             else {
-                fileName1[j] = file1[i];
+                second_file[j] = file_s[i];
 
-                if (file1[i] == 92) {
+                if (file_s[i] == 92) {
                     j++;
-                    fileName1[j] = 92;
+                    second_file[j] = 92;
                 }
                 j++;
                 i++;
@@ -347,7 +347,7 @@ void Codding() {
         }
     }
 
-    output = fopen(fileName1, "wb"); //файл куда записывается закодированный код
+    output = fopen(second_file, "wb"); //файл куда записывается закодированный код
     for (int i = 0; i < n; i++) {
         printf("%c %s\n", str[i], h_c[i]);
         if (str[i] == 32) {
@@ -362,52 +362,52 @@ void Codding() {
     fwrite(&byte, 1, 1, output);
     fprintf(output, "\n");
 
-    // запись в файл, записываем 8 бит = 1 байту в char символ, цикл пока не кратен 8 увеличиваем ch1 строкой, потом кодируем
-    //когда уже конец файла, а мы не закодировали ch1, то кодируем что осталось с добавлением 0 в последнем байте
-    int flag = 1;
-    int flag1 = 1;
-    unsigned char ch1[65535] = "";
-    while (flag1 == 1) {
+    // запись в файл, записываем 8 бит = 1 байту в char символ, цикл пока не кратен 8 увеличиваем str_cod строкой, потом кодируем
+    //когда уже конец файла, а мы не закодировали str_cod, то кодируем что осталось с добавлением 0 в последнем байте
+    int flag_second = 1;
+    int flag_first = 1;
+    unsigned char str_cod[65535] = "";
+    while (flag_first == 1) {
         if (fscanf(fp, "%s", &word) != EOF) {
-            if (flag == 1) {
-                memset(ch1, 0, sizeof(ch1));
+            if (flag_second == 1) {
+                memset(str_cod, 0, sizeof(str_cod));
             }
             for (int i = 0; i < strlen(word); i++) {
                 for (int j = 0; j < n; ++j) {
                     if (word[i] == str[j]) {
-                        strcat(ch1, h_c[j]);
+                        strcat(str_cod, h_c[j]);
                         break;
                     }
                 }
             }
             for (int j = 0; j < n; ++j) {//этот цикл нужно оптимизировать, тут просто поиск кода пробела.
                 if (32 == str[j]) {
-                    strcat(ch1, h_c[j]);
+                    strcat(str_cod, h_c[j]);
                     break;
                 }
             }
-            if (strlen(ch1) % 8 == 0) {
-                const char* array1 = ch1;
-                if (strlen(ch1) == 8) {
-                    unsigned char byte = ToBits(array1, strlen(ch1));
+            if (strlen(str_cod) % 8 == 0) {
+                const char* str_array = str_cod;
+                if (strlen(str_cod) == 8) {
+                    unsigned char byte = ToBits(str_array, strlen(str_cod));
                     fwrite(&byte, 1, 1, output);
 
                 }
                 else {
-                    int g = strlen(ch1);
+                    int g = strlen(str_cod);
                     while (g > 0) {
                         if (g - 8 >= 0) {
                             g -= 8;
-                            unsigned char byte = ToBits(array1, 8);
+                            unsigned char byte = ToBits(str_array, 8);
                             fwrite(&byte, 1, 1, output);
-                            array1 += 8;
+                            str_array += 8;
                         }
                         else {
                             int k = 8;
                             while (g - k != 0) {
                                 k--;
                             }
-                            unsigned char byte = ToBits(array1, k);
+                            unsigned char byte = ToBits(str_array, k);
                             fwrite(&byte, 1, 1, output);
                             g = 0;
                         }
@@ -417,49 +417,49 @@ void Codding() {
 
 
                 }
-                flag = 1;
-                array1 = "0";
-                unsigned char byte = ToBits(array1, 1);
+                flag_second = 1;
+                str_array = "0";
+                unsigned char byte = ToBits(str_array, 1);
                 fwrite(&byte, 1, 1, output);
             }
             else {
-                flag = 0;
+                flag_second = 0;
             }
         }
         else {
-            const char* array1 = ch1;
-            if (strlen(ch1) == 8) {
-                unsigned char byte = ToBits(array1, strlen(ch1));
+            const char* str_array = str_cod;
+            if (strlen(str_cod) == 8) {
+                unsigned char byte = ToBits(str_array, strlen(str_cod));
                 fwrite(&byte, 1, 1, output);
 
             }
             else {
-                int g = strlen(ch1);
+                int g = strlen(str_cod);
                 while (g > 0) { //12
                     if (g - 8 >= 0) {
                         g -= 8;
-                        unsigned char byte = ToBits(array1, 8);
+                        unsigned char byte = ToBits(str_array, 8);
                         fwrite(&byte, 1, 1, output);
-                        array1 += 8;
+                        str_array += 8;
                     }
                     else {
                         int k = 8;
                         while (g - k != 0) {
                             k--;
                         }
-                        unsigned char byte = ToBits(array1, k);
+                        unsigned char byte = ToBits(str_array, k);
                         fwrite(&byte, 1, 1, output);
                         g = 0;
                     }
                 }
             }
-            flag1 = 0;
-            array1 = "0";
-            unsigned char byte = ToBits(array1, 1);
+            flag_first = 0;
+            str_array = "0";
+            unsigned char byte = ToBits(str_array, 1);
             fwrite(&byte, 1, 1, output);
         }
     }
-    memset(ch1, 0, sizeof(ch1));
+    memset(str_cod, 0, sizeof(str_cod));
     fclose(fp);
     fclose(output);
 

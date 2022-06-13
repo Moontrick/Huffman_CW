@@ -32,7 +32,7 @@ void DeCodding() {
     char t_code[MAXWORD][MAXWORD]; //таблица кодов Хаффмана
     OPENFILENAME openFileDialog;
     char file[260];
-    unsigned char fileName[260] = "";
+    unsigned char main_file[260] = "";
     ZeroMemory(&openFileDialog, sizeof(openFileDialog));
     openFileDialog.lStructSize = sizeof(openFileDialog);
     openFileDialog.hwndOwner = NULL;
@@ -53,11 +53,11 @@ void DeCodding() {
                 i++;
             }
             else {
-                fileName[j] = file[i];
+                main_file[j] = file[i];
 
                 if (file[i] == 92) {
                     j++;
-                    fileName[j] = 92;
+                    main_file[j] = 92;
                 }
                 j++;
                 i++;
@@ -65,57 +65,57 @@ void DeCodding() {
         }
     }
     FILE* output;
-    output = fopen(fileName, "rb"); //файл куда записывается закодированный код
+    output = fopen(main_file, "rb"); //файл куда записывается закодированный код
     char word[MAXWORD];
 
-    int k1 = 0;
+    int k = 0;
 
-    int fl = 1;
-    while (fl == 1) {
+    int flag = 1;
+    while (flag == 1) {
 
         if (fscanf(output, "%s", &word) != 0) {
             if (word[0] == '\0') { break; };
-            symbols[k1] = word[0];
+            symbols[k] = word[0];
             fscanf(output, "%s", &word);
-            strcpy(t_code[k1], word);
-            k1++;
+            strcpy(t_code[k], word);
+            k++;
         }
-        else { fl = 0; }
+        else { flag = 0; }
 
     }
-    int n1 = k1;
+    int n = k;
 
     FILE* fw = fopen("output3.txt", "w");
     unsigned char byte;
-    unsigned char out[65535] = "";
+    unsigned char out_str[65535] = "";
     fread(&byte, 1, 1, output); // очистка кэша файла
-    int flag2 = 1;
+ 
     while (fread(&byte, 1, 1, output) == 1)
     {
         char bits[9] = { 0 };
         if (byte == 0) {
-            unsigned char out2[MAXWORD] = "";
-            for (int i = 0; i < strlen(out); i++) {
+            unsigned char out_second_str[MAXWORD] = "";
+            for (int i = 0; i < strlen(out_str); i++) {
 
-                if (out[i] == '0') {
-                    strcat(out2, "0");
+                if (out_str[i] == '0') {
+                    strcat(out_second_str, "0");
                 }
-                else { strcat(out2, "1"); }
-                for (int j = 0; j < n1; ++j) {
-                    if (!strcmp(out2, t_code[j])) {
+                else { strcat(out_second_str, "1"); }
+                for (int j = 0; j < n; ++j) {
+                    if (!strcmp(out_second_str, t_code[j])) {
                         if (symbols[j] == 1)
                             fprintf(fw, "%s", " ");
                         else
                             fprintf(fw, "%c", symbols[j]);
-                        memset(out2, 0, sizeof(out2));
+                        memset(out_second_str, 0, sizeof(out_second_str));
                         break;
                     }
                 }
             }
-            memset(out, 0, sizeof(out));
+            memset(out_str, 0, sizeof(out_str));
         }
         else {
-            strcat(out, OutByte(byte, bits));
+            strcat(out_str, OutByte(byte, bits));
         }
     }
     fclose(fw);

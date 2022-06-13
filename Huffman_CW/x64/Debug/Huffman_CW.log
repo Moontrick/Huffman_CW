@@ -1,15 +1,5 @@
-﻿  Coding.c
-F:\games\tests\Huffman_CW\Huffman_CW\Coding.c(11,1): warning C4005: MAXWORD: изменение макроопределения
+﻿  Decoding.c
+F:\games\tests\Huffman_CW\Huffman_CW\Decoding.c(12,1): warning C4005: MAXWORD: изменение макроопределения
 F:\Windows Kits\10\Include\10.0.19041.0\um\winnt.h(1198): message : см. предыдущее определение "MAXWORD"
-F:\games\tests\Huffman_CW\Huffman_CW\Coding.c(82,35): warning C4018: <: несоответствие типов со знаком и без знака
-F:\games\tests\Huffman_CW\Huffman_CW\Coding.c(96,35): warning C4018: <: несоответствие типов со знаком и без знака
-F:\games\tests\Huffman_CW\Huffman_CW\Coding.c(104,35): warning C4018: >=: несоответствие типов со знаком и без знака
-F:\games\tests\Huffman_CW\Huffman_CW\Coding.c(104,62): warning C4018: <: несоответствие типов со знаком и без знака
-F:\games\tests\Huffman_CW\Huffman_CW\Coding.c(243,36): warning C4133: =: несовместимые типы - из "char *" в "LPWSTR"
-F:\games\tests\Huffman_CW\Huffman_CW\Coding.c(315,38): warning C4133: =: несовместимые типы - из "char *" в "LPWSTR"
-F:\games\tests\Huffman_CW\Huffman_CW\Coding.c(392,57): warning C4267: функция: преобразование из "size_t" в "int"; возможна потеря данных
-F:\games\tests\Huffman_CW\Huffman_CW\Coding.c(432,53): warning C4267: функция: преобразование из "size_t" в "int"; возможна потеря данных
-F:\games\tests\Huffman_CW\Huffman_CW\Coding.c(397,29): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-F:\games\tests\Huffman_CW\Huffman_CW\Coding.c(437,25): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-F:\games\tests\Huffman_CW\Huffman_CW\Coding.c(234,17): warning C4101: fw: неиспользованная локальная переменная
+F:\games\tests\Huffman_CW\Huffman_CW\Decoding.c(39,36): warning C4133: =: несовместимые типы - из "char *" в "LPWSTR"
   Huffman_CW.vcxproj -> F:\games\tests\Huffman_CW\x64\Debug\Huffman_CW.exe
