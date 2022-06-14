@@ -2,4 +2,5 @@
 F:\games\tests\Huffman_CW\Huffman_CW\Decoding.c(12,1): warning C4005: MAXWORD: изменение макроопределения
 F:\Windows Kits\10\Include\10.0.19041.0\um\winnt.h(1198): message : см. предыдущее определение "MAXWORD"
 F:\games\tests\Huffman_CW\Huffman_CW\Decoding.c(39,36): warning C4133: =: несовместимые типы - из "char *" в "LPWSTR"
+F:\games\tests\Huffman_CW\Huffman_CW\Decoding.c(68,17): warning C4098: DeCodding: функция типа "void", возвращающая значение
   Huffman_CW.vcxproj -> F:\games\tests\Huffman_CW\x64\Debug\Huffman_CW.exe

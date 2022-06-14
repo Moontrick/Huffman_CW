@@ -111,7 +111,7 @@ void add_Tree(h_tree h_t, int i, int* s_left, int* s_right, int k_start) {
         }
     }
 }
-void HuffmanCoding(h_tree* h_t, h_code* h_c, int* w, int n) {
+void h_coding(h_tree* h_t, h_code* h_c, int* w, int n) {
     if (n <= 1) return;
 
     int m = 2 * n - 1; //узлы дерева
@@ -140,13 +140,13 @@ void HuffmanCoding(h_tree* h_t, h_code* h_c, int* w, int n) {
     for (int i = n; i < m; ++i) {
         // Строим дерево Хаффмана 
         // берем 2 узла и объединем под 1
-        unsigned int s1, s2;
-        add_Tree(*h_t, i, &s1, &s2, k_start);
-        (*h_t)[s1].parent = i;
-        (*h_t)[s2].parent = i;
-        (*h_t)[i].left = s1;
-        (*h_t)[i].right = s2;
-        (*h_t)[i].weight = (*h_t)[s1].weight + (*h_t)[s2].weight;//узел - родитель у 2 узло имеет сумму их весов
+        unsigned int s_left, s_right;
+        add_Tree(*h_t, i, &s_left, &s_right, k_start);
+        (*h_t)[s_left].parent = i;
+        (*h_t)[s_right].parent = i;
+        (*h_t)[i].left = s_left;
+        (*h_t)[i].right = s_right;
+        (*h_t)[i].weight = (*h_t)[s_left].weight + (*h_t)[s_right].weight;//узел - родитель у 2 узло имеет сумму их весов
         k_start++;
     }
 
@@ -269,7 +269,9 @@ void Codding() {
         }
     }
 
-
+    if (main_file[0] == '\0') {
+        return 0;
+    }
     fp = fopen(main_file, "r");
 
 
@@ -297,7 +299,7 @@ void Codding() {
 
     h_tree h_t;
     h_code h_c;
-    HuffmanCoding(&h_t, &h_c, cnt_str, n);
+    h_codding(&h_t, &h_c, cnt_str, n);
 
     FILE* output;
 
@@ -346,7 +348,9 @@ void Codding() {
             }
         }
     }
-
+    if (second_file[0] == '\0') {
+        return 0;
+    }
     output = fopen(second_file, "wb"); //файл куда записывается закодированный код
     for (int i = 0; i < n; i++) {
         printf("%c %s\n", str[i], h_c[i]);

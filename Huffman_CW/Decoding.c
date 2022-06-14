@@ -64,6 +64,9 @@ void DeCodding() {
             }
         }
     }
+    if (main_file[0] == '\0') {
+        return 0;
+    }
     FILE* output;
     output = fopen(main_file, "rb"); //файл куда записывается закодированный код
     char word[MAXWORD];
